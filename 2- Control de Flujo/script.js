@@ -178,6 +178,7 @@ Ejemplo:
     enlace: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/length )
 
 */
+// Se asignan fuera del bloque para ser usadas en otros bloques
 let isRegistered, registerUserName, registerPassword;
 
 const wishesToRegister = confirm(
@@ -186,20 +187,20 @@ const wishesToRegister = confirm(
 
 do {
   if (wishesToRegister) {
+    // Niega la variable para saber si ya tiene un dato almacenado. Evita el error al retomar el "do".
     if (!registerUserName) {
       registerUserName = prompt("Ingresa tu nombre de usuario");
     }
-
     if (registerUserName.length >= 3) {
       registerUserName = registerUserName.toLowerCase();
-
       registerPassword = prompt("Ingresa tu password");
-
       if (registerPassword.length >= 6) {
         alert("El registro se completo exitosamente");
+        // Asigna en true para que corte el bucle
         isRegistered = true;
       } else {
         alert("El password tiene que tener por lo menos 6 caracteres");
+        // Asigna en Null para que en el While sea tru y repita el bucle
         registerPassword = null;
       }
     } else {
@@ -228,12 +229,14 @@ if (isRegistered) {
   do {
     if (wishesToLogin) {
       loginUsername = prompt("Ingresa tu usuario");
-
+      // IF para que el lower case funcione sólo cuando no es Null
       if (loginUsername !== null) {
         loginUsername = loginUsername.toLowerCase();
+        // Pregunta el pass sólo si es distinto que Null
         loginPassword = prompt("Ingresa tu password");
-
+        // Pregunta si no ingreso pass en el loguin
         if (loginPassword === null) {
+          // Asigna en false para que vuelva a preguntar cumpliendo el while
           wishesToLogin = false;
         } else if (
           loginUsername === registerUserName &&
@@ -242,10 +245,12 @@ if (isRegistered) {
           alert("Login Exitoso!");
         } else {
           alert("Alguno de los datos ingresados es incorrecto");
+          // Asigna en Null para que reinicie el bucle cumpliendo el While
           loginPassword = null;
           loginUsername = null;
         }
       } else {
+        // Asigna en false para cumplir el while y volver a preguntar
         wishesToLogin = false;
       }
     } else {
